@@ -15,10 +15,6 @@
 01-sales-report/
 ├── README.md
 ├── GEMINI.md
-├── data/
-│   └── weekly_sales.csv
-├── src/
-│   └── report.py
 └── output/
     └── (생성된 보고서)
 ```

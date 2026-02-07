@@ -1,0 +1,43 @@
+# General
+.DS_Store
+.idea/
+.vscode/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Data Analysis
+.ipynb_checkpoints
+profile_default/
+ipython_config.py
+
+# Raw Data (Security & Size)
+*.csv
+*.xlsx
+*.xls
+*.json
+*.parquet
+*.pkl
+*.pickle
+
+# Project Directories
+# All files in these directories are ignored, 
+# but the directory structure itself is kept via .gitkeep
+data/*
+!data/.gitkeep
+
+report_assets/*
+!report_assets/.gitkeep
+
+outputs/*
+!outputs/.gitkeep
