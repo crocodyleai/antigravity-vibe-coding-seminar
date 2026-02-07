@@ -1,35 +1,29 @@
----
-description: 월간 커머스 주문 및 매출 심층 분석 보고서 생성 워크플로우
----
 
 # Monthly Commerce Analysis Workflow
 
-이 워크플로우를 실행하여 전문적인 마케팅/데이터 분석 보고서를 생성합니다.
+이 워크플로우를 실행하여 매월의 커머스 데이터를 분석하고 체계적으로 보고서를 생성합니다.
 
-1.  **데이터 분석 (Data Analysis)**
-    -   우선 `data/orders.csv` 파일을 읽어서 `pandas` DataFrame으로 로드합니다.
-    -   SKILL: `commerce_analysis`를 활용하여 기본 통계 및 KPI 분석을 수행합니다.
-    -   데이터 구조와 결측치를 확인하고 필요한 전처리를 수행합니다.
-    -   주문자(Customer)별 고유 ID를 기반으로 고객 행동 패턴을 분석합니다 (재구매율, RFM 분석 등).
+1.  **초기 설정 (Setup)**
+    -   분석할 연월(YYYY_MM)을 결정합니다. (예: `2026_02`)
+    -   해당 월의 보고서 폴더를 생성합니다: `mkdir -p reports/YYYY_MM/assets`
+    -   분석할 데이터 파일 경로를 확인합니다. (예: `data/cirius_YYYY_MMM.csv`)
 
-2.  **인사이트 탐색 및 시각화 (Exploratory Visualization)**
-    -   `matplotlib` 또는 `seaborn`을 사용하여 다양한 각도에서 데이터를 시각화해 봅니다.
-    -   시계열 트렌드, 카테고리별 비중 등을 그려보고 주목할 만한 패턴이나 이상치를 찾습니다.
-    -   단순히 그래프를 그리는 것이 아니라, "왜 이런 현상이 발생했는가?"에 대한 가설을 세우고 검증합니다.
+2.  **데이터 분석 (Data Analysis)**
+    -   `pandas`를 사용하여 데이터 파일을 로드하고 기본 KPI를 분석합니다.
+    -   스크립트 실행: `python scripts/step1_data_analysis.py data/cirius_YYYY_MMM.csv`
 
-3.  **보고서 기획 (Report Planning)**
-    -   분석된 내용 중 가장 중요한 핵심 발견점(Key Findings) 3~5가지를 선정합니다.
-    -   보고서의 논리적 흐름(Storyline)을 구성합니다: 현황 요약 -> 상세 분석 (매출/상품/고객) -> 인사이트 및 제언.
-    -   각 섹션에 들어갈 텍스트와 필요한 차트를 구체적으로 계획합니다.
+3.  **인사이트 탐색 및 시각화 (Visualization)**
+    -   시각화 스크립트를 실행하여 차트를 생성하고, **월별 assets 폴더**에 저장합니다.
+    -   스크립트 실행: `python scripts/step2_visualization.py data/cirius_YYYY_MMM.csv reports/YYYY_MM/assets`
+    -   생성된 차트(`daily_sales_trend.png`, `top_products.png` 등)가 `reports/YYYY_MM/assets/`에 잘 들어갔는지 확인합니다.
 
-4.  **보고서용 시각화 생성 (Final Visualization)**
-    -   기획 단계에서 선정한 차트를 고퀄리티로 생성합니다.
-    -   차트 제목, 축 레이블, 범례 등을 명확하게 표시하고, 가독성을 위해 색상을 신중하게 선택합니다.
-    -   중요한 데이터 포인트에 주석(annotation)을 추가하여 독자의 이해를 돕습니다.
-    -   생성된 이미지는 `report_assets/` 폴더에 저장합니다.
+4.  **보고서 기획 (Report Planning)**
+    -   분석 결과와 시각화 자료를 바탕으로 핵심 인사이트를 도출합니다.
+    -   기획안을 작성하여 저장합니다: `reports/YYYY_MM/plan.md`
+    -   보고서의 논리적 흐름(Storyline)을 구성합니다.
 
 5.  **최종 보고서 작성 (Final Report Writing)**
-    -   `Monthly_Report_YYYY_MM.md` 파일로 보고서를 작성합니다.
-    -   전문적인 비즈니스 톤으로 작성하며, 핵심 요약(Executive Summary)을 반드시 포함합니다.
-    -   단순 수치 나열이 아닌, 데이터 기반의 현황 진단과 향후 마케팅/운영 전략 제언을 포함합니다.
-    -   `report_assets/`에 저장된 차트 이미지를 적절한 위치에 삽입합니다.
+    -   Markdown 보고서를 작성합니다: `reports/YYYY_MM/report.md`
+    -   이미지 경로는 상대 경로 `assets/이미지명.png`를 사용하여 삽입합니다.
+    -   핵심 요약(Executive Summary)과 액션 아이템(Action Item)을 포함합니다.
+    -   (옵션) HTML 변환이 필요하면 `report.html`도 같은 폴더에 생성합니다.

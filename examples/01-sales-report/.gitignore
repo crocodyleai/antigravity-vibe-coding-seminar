@@ -41,3 +41,6 @@ report_assets/*
 
 outputs/*
 !outputs/.gitkeep
+
+# Reports
+reports/
